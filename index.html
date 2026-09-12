@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C4S Studio — Photography &amp; Videography</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15130F;
+    --panel:#1D1A14;
+    --panel-2:#242017;
+    --paper:#EFE7D6;
+    --paper-dim:#C9C0A9;
+    --gold:#C69A2E;
+    --gold-dim:#8C6E22;
+    --rust:#A6482F;
+    --sage:#83795C;
+    --hole:#0B0A08;
+    --serif:'Fraunces', 'Noto Sans Sinhala', serif;
+    --sans:'Archivo', 'Noto Sans Sinhala', sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- sprocket strip divider (literal film motif) ---------- */
+  .sprocket{
+    height:26px;
+    background:var(--hole);
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
+  }
+  .sprocket .row{
+    display:flex;
+    gap:22px;
+    padding-left:16px;
+    animation:none;
+  }
+  .sprocket span{
+    flex:none;
+    width:11px;
+    height:11px;
+    border-radius:2px;
+    background:var(--ink);
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(21,19,15,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid #33301F;
+  }
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:18px;
+    padding-bottom:18px;
+  }
+  .brand{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:22px;
+    letter-spacing:0.02em;
+    color:var(--paper);
+  }
+  .brand em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .navlinks{
+    display:flex;
+    gap:28px;
+    font-size:15px;
+  }
+  .navlinks a{
+    text-decoration:none;
+    color:var(--paper-dim);
+    transition:color .2s ease;
+  }
+  .navlinks a:hover{color:var(--gold);}
+  @media (max-width:640px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+    position:relative;
+  }
+  .hero .eyebrow{
+    font-family:var(--sans);
+    font-size:15px;
+    color:var(--sage);
+    margin:0 0 18px;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(40px, 6vw, 74px);
+    line-height:1.08;
+    margin:0 0 28px;
+    max-width:14ch;
+    color:var(--paper);
+  }
+  .hero .lede{
+    font-size:19px;
+    color:var(--paper-dim);
+    max-width:46ch;
+    margin:0 0 40px;
+  }
+  .hero .lede b{color:var(--paper); font-weight:600;}
+
+  .btn-row{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    display:inline-block;
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:15px;
+    padding:14px 26px;
+    text-decoration:none;
+    border-radius:2px;
+    transition:transform .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--ink);
+  }
+  .btn-primary:hover{ background:#dcae3a; transform:translateY(-1px); }
+  .btn-ghost{
+    border:1px solid #4A4630;
+    color:var(--paper);
+  }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .hero-frame{
+    margin-top:64px;
+    border:1px solid #3A3624;
+    aspect-ratio:16/6;
+    background:
+      radial-gradient(circle at 18% 30%, rgba(198,154,46,0.35), transparent 45%),
+      radial-gradient(circle at 78% 70%, rgba(166,72,47,0.30), transparent 50%),
+      linear-gradient(135deg, #221F17, #17150F);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-frame::before{
+    content:"f/2.8 · 1/250 · ISO 200";
+    position:absolute;
+    left:20px; bottom:16px;
+    font-family:var(--sans);
+    font-size:12px;
+    color:rgba(239,231,214,0.55);
+  }
+  .hero-frame::after{
+    content:"";
+    position:absolute;
+    top:20px; right:20px;
+    width:34px; height:34px;
+    border:2px solid rgba(239,231,214,0.5);
+    border-radius:50%;
+  }
+
+  /* ---------- section shells ---------- */
+  section{ padding:88px 0; }
+  .section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:24px;
+    margin-bottom:48px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(30px,4vw,42px);
+    margin:0;
+    max-width:16ch;
+  }
+  .section-head p{
+    color:var(--paper-dim);
+    max-width:40ch;
+    margin:0;
+    font-size:16px;
+  }
+
+  /* ---------- services ---------- */
+  .services{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid #33301F;
+  }
+  .service{
+    padding:32px 22px;
+    border-right:1px solid #33301F;
+    border-bottom:1px solid #33301F;
+  }
+  .service:last-child{ border-right:none; }
+  .service .num{
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--gold-dim);
+    font-size:15px;
+    display:block;
+    margin-bottom:14px;
+  }
+  .service h3{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:20px;
+    margin:0 0 10px;
+  }
+  .service p{
+    font-size:14.5px;
+    color:var(--paper-dim);
+    margin:0;
+  }
+  @media (max-width:900px){
+    .services{grid-template-columns:repeat(2,1fr);}
+    .service:nth-child(2){border-right:none;}
+  }
+  @media (max-width:560px){
+    .services{grid-template-columns:1fr;}
+    .service{border-right:none !important;}
+  }
+
+  /* ---------- contact sheet gallery ---------- */
+  .sheet{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+  }
+  .frame{
+    aspect-ratio:3/4;
+    border:1px solid #3A3624;
+    position:relative;
+    overflow:hidden;
+  }
+  .frame span{
+    position:absolute;
+    top:8px; left:8px;
+    font-size:11px;
+    color:rgba(239,231,214,0.55);
+    font-family:var(--sans);
+  }
+  .frame:nth-child(1){ background:linear-gradient(160deg,#2A2116,#171410); }
+  .frame:nth-child(2){ background:linear-gradient(160deg,#3A2418,#181410); }
+  .frame:nth-child(3){ background:linear-gradient(160deg,#26261C,#141310); }
+  .frame:nth-child(4){ background:linear-gradient(160deg,#332417,#161310); }
+  .frame:nth-child(5){ background:linear-gradient(160deg,#241E14,#15130F); }
+  @media (max-width:800px){ .sheet{grid-template-columns:repeat(3,1fr);} .frame:nth-child(4),.frame:nth-child(5){display:none;} }
+
+  /* ---------- pricing ---------- */
+  .packages{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border:1px solid #3A3624;
+  }
+  .package{
+    padding:40px 32px;
+    border-right:1px solid #3A3624;
+    position:relative;
+  }
+  .package:last-child{ border-right:none; }
+  .package.featured{
+    background:var(--panel-2);
+    box-shadow:inset 0 0 0 1px var(--gold);
+  }
+  .package .tag{
+    position:absolute;
+    top:0; right:0;
+    background:var(--gold);
+    color:var(--ink);
+    font-size:12px;
+    font-weight:700;
+    padding:6px 14px;
+  }
+  .package .frame-marks{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:26px;
+  }
+  .package .frame-marks .corner{
+    width:14px; height:14px;
+    border-top:2px solid var(--gold-dim);
+    border-left:2px solid var(--gold-dim);
+  }
+  .package.featured .frame-marks .corner{ border-color:var(--gold); }
+  .package .num{
+    font-family:var(--serif);
+    font-style:italic;
+    color:var(--sage);
+    font-size:15px;
+  }
+  .package h3{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:26px;
+    margin:14px 0 6px;
+  }
+  .package .price{
+    font-family:var(--serif);
+    font-size:34px;
+    font-weight:600;
+    color:var(--gold);
+    margin:0 0 4px;
+  }
+  .package .price sup{ font-size:15px; top:-14px; color:var(--paper-dim); font-family:var(--sans); }
+  .package .price-note{
+    font-size:13px;
+    color:var(--paper-dim);
+    margin:0 0 28px;
+  }
+  .package ul{
+    list-style:none;
+    padding:0;
+    margin:0 0 32px;
+  }
+  .package li{
+    padding:10px 0;
+    border-top:1px solid #33301F;
+    font-size:14.5px;
+    color:var(--paper-dim);
+  }
+  .package li:first-child{ border-top:none; }
+  .package li b{ color:var(--paper); font-weight:600; }
+  .package .btn{ width:100%; text-align:center; }
+
+  @media (max-width:900px){
+    .packages{grid-template-columns:1fr;}
+    .package{border-right:none; border-bottom:1px solid #3A3624;}
+    .package:last-child{border-bottom:none;}
+  }
+
+  .note-line{
+    margin-top:28px;
+    font-size:14px;
+    color:var(--sage);
+  }
+
+  /* ---------- process ---------- */
+  .process{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid #33301F;
+    border-bottom:1px solid #33301F;
+  }
+  .step{
+    flex:1 1 220px;
+    padding:30px 24px;
+    border-right:1px solid #33301F;
+  }
+  .step:last-child{ border-right:none; }
+  .step .num{ font-family:var(--serif); font-style:italic; color:var(--gold-dim); font-size:14px; }
+  .step h4{ font-family:var(--serif); font-size:18px; margin:10px 0 8px; font-weight:600; }
+  .step p{ font-size:14px; color:var(--paper-dim); margin:0; }
+
+  /* ---------- contact / footer ---------- */
+  .contact{
+    text-align:left;
+  }
+  .contact h2{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(30px,5vw,48px);
+    max-width:16ch;
+    margin:0 0 24px;
+  }
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:48px;
+    align-items:start;
+  }
+  .contact-list{ list-style:none; padding:0; margin:0; }
+  .contact-list li{
+    padding:16px 0;
+    border-top:1px solid #33301F;
+    display:flex;
+    justify-content:space-between;
+    font-size:15px;
+  }
+  .contact-list li:last-child{ border-bottom:1px solid #33301F; }
+  .contact-list span.k{ color:var(--sage); }
+  .contact-list span.v{ color:var(--paper); font-weight:500; }
+
+  @media (max-width:800px){ .contact-grid{grid-template-columns:1fr;} }
+
+  footer{
+    padding:36px 0;
+    border-top:1px solid #33301F;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:13px;
+    color:var(--sage);
+  }
+
+  /* ---------- login area (nav) ---------- */
+  .login-area{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
+  .navlogin{
+    font-size:14px;
+    text-decoration:none;
+    color:var(--paper-dim);
+    cursor:pointer;
+    transition:color .2s ease;
+  }
+  .navlogin:hover{ color:var(--gold); }
+  .user-chip{
+    display:none;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+    color:var(--paper-dim);
+  }
+  .user-chip .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:var(--gold);
+  }
+  .user-chip b{ color:var(--paper); font-weight:600; }
+  .user-chip a{
+    color:var(--sage);
+    text-decoration:underline;
+    cursor:pointer;
+    font-size:13px;
+  }
+  .user-chip a:hover{ color:var(--rust); }
+
+  /* ---------- login modal ---------- */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(11,10,8,0.82);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal{
+    background:var(--panel);
+    border:1px solid #3A3624;
+    max-width:400px;
+    width:100%;
+    padding:36px 32px 32px;
+    position:relative;
+  }
+  .modal .close-x{
+    position:absolute;
+    top:14px; right:16px;
+    color:var(--sage);
+    cursor:pointer;
+    font-size:20px;
+    line-height:1;
+    background:none;
+    border:none;
+  }
+  .modal .close-x:hover{ color:var(--rust); }
+  .modal .frame-marks{ display:flex; justify-content:space-between; margin-bottom:18px; }
+  .modal .frame-marks .corner{ width:14px; height:14px; border-top:2px solid var(--gold); border-left:2px solid var(--gold); }
+  .modal h3{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:26px;
+    margin:0 0 8px;
+  }
+  .modal .modal-sub{
+    font-size:14px;
+    color:var(--paper-dim);
+    margin:0 0 26px;
+  }
+  .modal label{
+    display:block;
+    font-size:13px;
+    color:var(--sage);
+    margin-bottom:6px;
+  }
+  .modal input{
+    width:100%;
+    background:var(--ink);
+    border:1px solid #3A3624;
+    color:var(--paper);
+    font-family:var(--sans);
+    font-size:15px;
+    padding:11px 12px;
+    margin-bottom:18px;
+    border-radius:2px;
+  }
+  .modal input:focus{
+    outline:none;
+    border-color:var(--gold);
+  }
+  .modal .btn{ width:100%; text-align:center; border:none; cursor:pointer; }
+  .modal .modal-note{
+    margin-top:16px;
+    font-size:12.5px;
+    color:var(--sage);
+    line-height:1.5;
+  }
+  .modal .form-error{
+    display:none;
+    color:var(--rust);
+    font-size:13px;
+    margin:-8px 0 14px;
+  }
+  .modal .google-slot{
+    display:flex;
+    justify-content:center;
+    margin-bottom:22px;
+    min-height:44px;
+  }
+  .modal .divider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin:0 0 22px;
+    color:var(--sage);
+    font-size:13px;
+  }
+  .modal .divider::before,
+  .modal .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:#3A3624;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">C4S <em>Studio</em></div>
+    <div class="navlinks">
+      <a href="#services">Services</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#packages">Packages</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="login-area">
+      <a class="navlogin" id="loginTrigger">Login</a>
+      <div class="user-chip" id="userChip">
+        <span class="dot"></span>
+        <span>Ayubowan, <b id="userNameLabel"></b></span>
+        <a id="logoutTrigger">Logout</a>
+      </div>
+      <a href="#packages" class="btn btn-primary" style="padding:10px 18px; font-size:14px;">Book Now</a>
+    </div>
+  </nav>
+</header>
+
+<div class="sprocket"><div class="row" id="sprocket-row"></div></div>
+
+<main>
+  <section class="hero wrap">
+    <p class="eyebrow">Photography &amp; Videography — Sri Lanka</p>
+    <h1>ඔබේ මොහොතම, කැමරාවක කතාවක්.</h1>
+    <p class="lede">C4S Studio එකෙන් අපි වෙඩින්, ෆොටෝෂූට් සහ ඉවෙන්ට් මතකයන් <b>ස්වභාවික ලෙසින්, පැහැදිලි එඩිටින් එකකින්</b> ඔබට රැගෙන එනවා. එක Package එකක් තෝරගෙන අදම Book කරගන්න.</p>
+    <div class="btn-row">
+      <a href="#packages" class="btn btn-primary">Packages බලන්න</a>
+      <a href="#gallery" class="btn btn-ghost">Work එක බලන්න</a>
+    </div>
+    <div class="hero-frame"></div>
+  </section>
+
+  <div class="sprocket"><div class="row" id="sprocket-row2"></div></div>
+
+  <section id="services" class="wrap">
+    <div class="section-head">
+      <h2>අපි කරන දේ</h2>
+      <p>Studio session එකේ ඉඳන් full-day event coverage එක දක්වා — ඔබට ඕන විදිහට plan කරගන්න පුළුවන්.</p>
+    </div>
+    <div class="services">
+      <div class="service">
+        <span class="num">01</span>
+        <h3>Wedding Coverage</h3>
+        <p>මංගල උත්සවයේ හැම මොහොතක්ම — poruwa, homecoming, reception — කවර් කරනවා.</p>
+      </div>
+      <div class="service">
+        <span class="num">02</span>
+        <h3>Photoshoots</h3>
+        <p>Portrait, couple, family සහ pre-shoot සඳහා studio හෝ outdoor location shoots.</p>
+      </div>
+      <div class="service">
+        <span class="num">03</span>
+        <h3>Event &amp; Birthday</h3>
+        <p>Birthday, homecoming, corporate event — moment එකක් අහිමි නොවෙන්න coverage එකක්.</p>
+      </div>
+      <div class="service">
+        <span class="num">04</span>
+        <h3>Videography</h3>
+        <p>Cinematic highlight videos සහ raw footage — Instagram reels වලට ready කරලා දෙනවා.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="wrap">
+    <div class="section-head">
+      <h2>Contact Sheet</h2>
+      <p>අපේ shoots වලින් frames කිහිපයක් — Instagram එකේ full gallery එක බලන්න පුළුවන්.</p>
+    </div>
+    <div class="sheet">
+      <div class="frame"><span>01 · Wedding</span></div>
+      <div class="frame"><span>02 · Portrait</span></div>
+      <div class="frame"><span>03 · Event</span></div>
+      <div class="frame"><span>04 · Couple</span></div>
+      <div class="frame"><span>05 · Outdoor</span></div>
+    </div>
+  </section>
+
+  <section id="packages" class="wrap">
+    <div class="section-head">
+      <h2>ඔබට ගැලපෙන Package එක</h2>
+      <p>සියලුම Package වල edited photos soft copy විදිහට delivery කරනවා. Travel charge locations අනුව වෙනස් වෙන්න පුළුවන්.</p>
+    </div>
+
+    <div class="packages">
+      <div class="package">
+        <div class="frame-marks"><span class="corner"></span></div>
+        <span class="num">01 — Basic</span>
+        <h3>Basic Shoot</h3>
+        <p class="price">Rs. 4,000</p>
+        <p class="price-note">Session එකකට</p>
+        <ul>
+          <li><b>1 hour</b> photoshoot session</li>
+          <li><b>1</b> location</li>
+          <li><b>15</b> edited photos</li>
+          <li>Soft copies — online delivery</li>
+          <li>Delivery: <b>3 days</b> ඇතුළත</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost book-cta">Book Basic</a>
+      </div>
+
+      <div class="package featured">
+        <span class="tag">Popular</span>
+        <div class="frame-marks"><span class="corner"></span></div>
+        <span class="num">02 — Standard</span>
+        <h3>Standard Shoot</h3>
+        <p class="price">Rs. 5,000</p>
+        <p class="price-note">Session එකකට</p>
+        <ul>
+          <li><b>2 hours</b> photoshoot session</li>
+          <li><b>2</b> locations</li>
+          <li><b>30</b> edited photos</li>
+          <li>Soft copies + <b>5 prints</b></li>
+          <li>Delivery: <b>2 days</b> ඇතුළත</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary book-cta">Book Standard</a>
+      </div>
+
+      <div class="package">
+        <div class="frame-marks"><span class="corner"></span></div>
+        <span class="num">03 — Premium</span>
+        <h3>Premium Coverage</h3>
+        <p class="price">Rs. 7,500</p>
+        <p class="price-note">Full day event එකකට</p>
+        <ul>
+          <li><b>Full day</b> coverage (4+ hours)</li>
+          <li>Locations — <b>unlimited</b></li>
+          <li><b>60+</b> edited photos</li>
+          <li>Photo album + <b>video highlight reel</b></li>
+          <li>Delivery: <b>5–7 days</b> ඇතුළත</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost book-cta">Book Premium</a>
+      </div>
+    </div>
+    <p class="note-line">Custom package එකක් ඕනිනම් — WhatsApp කරලා අහන්න, budget එකට ගැලපෙන විදිහට හදලා දෙන්නම්.</p>
+  </section>
+
+  <div class="process wrap" style="border-left:1px solid #33301F; border-right:1px solid #33301F;">
+    <div class="step">
+      <span class="num">i.</span>
+      <h4>Package තෝරගන්න</h4>
+      <p>ඔබට ගැලපෙන package එක select කරලා WhatsApp / call එකෙන් contact කරන්න.</p>
+    </div>
+    <div class="step">
+      <span class="num">ii.</span>
+      <h4>Date එක Confirm</h4>
+      <p>Advance එකක් සමඟ shoot date එක සහ location එක confirm කරගමු.</p>
+    </div>
+    <div class="step">
+      <span class="num">iii.</span>
+      <h4>Shoot Day</h4>
+      <p>Team එක location එකට එනවා — natural, relax vibe එකක් සමඟ shoot කරනවා.</p>
+    </div>
+    <div class="step">
+      <span class="num">iv.</span>
+      <h4>Delivery</h4>
+      <p>Edited photos/video package එකට specify කරපු දවස් ගානේදී soft copy විදිහට delivery.</p>
+    </div>
+  </div>
+
+  <section id="contact" class="wrap contact">
+    <div class="contact-grid">
+      <div>
+        <h2>අදම Book කරගන්න.</h2>
+        <p class="lede" style="margin-bottom:28px;">Date එක fix කරගන්න ඉක්මනින් message කරන්න — busy season වලට slots limited.</p>
+        <a href="#" class="btn btn-primary book-cta" data-whatsapp="true">WhatsApp කරන්න</a>
+      </div>
+      <ul class="contact-list">
+        <li><span class="k">Phone</span><span class="v">+94 7X XXX XXXX</span></li>
+        <li><span class="k">WhatsApp</span><span class="v">+94 7X XXX XXXX</span></li>
+        <li><span class="k">Instagram</span><span class="v">@c4s.studio</span></li>
+        <li><span class="k">Email</span><span class="v">hello@c4sstudio.lk</span></li>
+        <li><span class="k">Location</span><span class="v">Sri Lanka — island-wide</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div class="sprocket"><div class="row" id="sprocket-row3"></div></div>
+
+<footer class="wrap">
+  <span>© 2026 C4S Studio. සියලුම හිමිකම් ඇවිරිණි.</span>
+  <span>Photography &amp; Videography — island-wide</span>
+</footer>
+
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="close-x" id="modalClose" aria-label="Close">&times;</button>
+    <div class="frame-marks"><span class="corner"></span></div>
+    <h3 id="modalHeading">Book කරන්න කලින්, Login වෙන්න</h3>
+    <p class="modal-sub" id="modalSub">ඔබේ booking එක save කරගන්න පළමුව account එකට login වෙන්න ඕන.</p>
+
+    <div id="g_id_onload"
+         data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+         data-callback="handleGoogleLogin"
+         data-auto_prompt="false">
+    </div>
+    <div class="google-slot">
+      <div class="g_id_signin"
+           data-type="standard"
+           data-theme="outline"
+           data-size="large"
+           data-width="300"
+           data-text="signin_with"
+           data-shape="rectangular">
+      </div>
+    </div>
+    <div class="divider">හෝ</div>
+
+    <form id="loginForm">
+      <label for="loginUser">Name / Username</label>
+      <input type="text" id="loginUser" placeholder="ඔබේ නම" required>
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" placeholder="••••••••" required>
+      <p class="form-error" id="loginError">Username සහ Password දෙකම හරියට දාන්න.</p>
+      <button type="submit" class="btn btn-primary">Login වෙලා Continue කරන්න</button>
+    </form>
+    <p class="modal-note">* Google Sign-In button එක වැඩ කරන්න ඕනිනම් <code>YOUR_GOOGLE_CLIENT_ID</code> එක ඔබේ real Google Client ID එකෙන් replace කරන්න ඕන (පහත explanation එක බලන්න). Username/Password form එක demo fallback එකක් විතරයි — refresh කලාම log out වෙනවා. Real production login/security එකට backend + database එකක් අවශ්‍යයි.</p>
+  </div>
+</div>
+
+<script>
+  // fill sprocket rows with enough holes to cover width
+  function fillSprocket(id){
+    const row = document.getElementById(id);
+    if(!row) return;
+    const count = Math.ceil(window.innerWidth / 33) + 4;
+    row.innerHTML = '';
+    for(let i=0;i<count;i++){
+      const s = document.createElement('span');
+      row.appendChild(s);
+    }
+  }
+  ['sprocket-row','sprocket-row2','sprocket-row3'].forEach(fillSprocket);
+  window.addEventListener('resize', () => {
+    ['sprocket-row','sprocket-row2','sprocket-row3'].forEach(fillSprocket);
+  });
+
+  // ---------- login gate (front-end demo only, no backend) ----------
+  let currentUser = null;      // resets on page refresh — no real session/storage
+  let pendingAction = null;    // function to run right after a successful login
+
+  const overlay      = document.getElementById('loginOverlay');
+  const loginForm     = document.getElementById('loginForm');
+  const loginUserIn   = document.getElementById('loginUser');
+  const loginPassIn   = document.getElementById('loginPass');
+  const loginError    = document.getElementById('loginError');
+  const loginTrigger  = document.getElementById('loginTrigger');
+  const logoutTrigger = document.getElementById('logoutTrigger');
+  const userChip      = document.getElementById('userChip');
+  const userNameLabel = document.getElementById('userNameLabel');
+
+  function openModal(afterLogin){
+    pendingAction = afterLogin || null;
+    loginError.style.display = 'none';
+    loginForm.reset();
+    overlay.classList.add('open');
+    loginUserIn.focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    pendingAction = null;
+  }
+
+  function setLoggedIn(name){
+    currentUser = name;
+    loginTrigger.style.display = 'none';
+    userChip.style.display = 'flex';
+    userNameLabel.textContent = name;
+  }
+  function setLoggedOut(){
+    currentUser = null;
+    loginTrigger.style.display = 'inline';
+    userChip.style.display = 'none';
+  }
+
+  loginTrigger.addEventListener('click', () => openModal(null));
+  logoutTrigger.addEventListener('click', setLoggedOut);
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+
+  // ---------- Google Sign-In ----------
+  // Decodes the JWT Google sends back so we can read the user's name/email.
+  // (For real security this token should be verified on a server — see note below.)
+  function parseJwt(token){
+    try{
+      const base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+      const json = decodeURIComponent(
+        atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+      );
+      return JSON.parse(json);
+    }catch(err){
+      return {};
+    }
+  }
+
+  // Called automatically by Google's library when sign-in succeeds
+  // (wired up via data-callback="handleGoogleLogin" on #g_id_onload above).
+  window.handleGoogleLogin = function(response){
+    const payload = parseJwt(response.credential);
+    const name = payload.name || payload.email || 'Google User';
+    setLoggedIn(name);
+    overlay.classList.remove('open');
+    if(pendingAction){
+      pendingAction();
+      pendingAction = null;
+    }
+  };
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = loginUserIn.value.trim();
+    const pass = loginPassIn.value.trim();
+    if(!name || !pass){
+      loginError.style.display = 'block';
+      return;
+    }
+    setLoggedIn(name);
+    overlay.classList.remove('open');
+    if(pendingAction){
+      pendingAction();
+      pendingAction = null;
+    }
+  });
+
+  // gate every booking CTA
+  document.querySelectorAll('.book-cta').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      if(currentUser) return; // already logged in — let the link work normally
+      e.preventDefault();
+      const target = btn.getAttribute('href');
+      const isWhatsapp = btn.dataset.whatsapp === 'true';
+      openModal(function(){
+        if(isWhatsapp){
+          // in a real deployment this would jump to the actual wa.me link
+          window.location.href = target;
+        } else if(target){
+          document.querySelector(target)?.scrollIntoView({behavior:'smooth'});
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
